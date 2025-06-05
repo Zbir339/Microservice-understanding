@@ -1,0 +1,7 @@
+
+##crée un user pour l'utilisation des bdd
+db.createUser({
+   user: "user",
+   pwd: "example",
+   roles: [ { role: "readWrite", db: "products" } ]
+})
