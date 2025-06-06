@@ -1,6 +1,8 @@
 package com.example.product_service.services;
 
 import com.example.product_service.domain.Product;
+import com.example.product_service.domain.dto.ProductDto;
+import com.example.product_service.mapper.Mapper;
 import com.example.product_service.repository.ProductRepository;
 import com.example.product_service.service.impl.ProductServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,6 +26,9 @@ class ProductServiceImplTest {
 
     @Mock
     private ProductRepository productRepository;
+
+    @Autowired
+    private Mapper<Product, ProductDto> productProductDtoMapper;
 
     @Autowired @InjectMocks
     private ProductServiceImpl productService;
@@ -49,7 +54,7 @@ class ProductServiceImplTest {
             return product;
         });
 
-        Product pro = productService.save(product);
+        Product pro = productService.save(productProductDtoMapper.mapTo(product));
         assertAll("",
                 ()->assertNotNull(pro,"Product mustn't be null"),
                 ()->assertEquals("68415f566a0dce1a7850534d",pro.getId())
